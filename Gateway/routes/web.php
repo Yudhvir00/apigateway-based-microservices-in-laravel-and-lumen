@@ -17,3 +17,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+$prefix = config('roro.prefix', '');
+
+Route::group(['prefix' => $prefix], function () {
+    Route::get('/', function () {
+        return view('welcome'); // Your current homepage
+    });
+
+    Route::get('/login', function () {
+        return view('auth.login'); // You'll need to create
+    });
+
+    Route::get('/register', function () {
+        return view('auth.register'); // You'll need to create this view
+    });
+
+    // Add POST routes for form submissions
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+});
