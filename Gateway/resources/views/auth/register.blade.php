@@ -1,282 +1,183 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - ShipAfrika</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #ffffff;
-            color: #000000;
+            font-family: 'Nunito', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 300;
-            line-height: 1.6;
-            padding: 2rem 0;
+            margin: 0;
+            padding: 1rem;
         }
-
-        .container {
-            max-width: 400px;
+        .register-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             width: 100%;
-            padding: 0 2rem;
+            max-width: 400px;
         }
-
-        .logo-section {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
         .logo {
-            width: 160px;
-            height: auto;
-            opacity: 0.9;
-        }
-
-        .form-card {
-            background: #ffffff;
-            border: 1px solid #000000;
-            padding: 3rem 2rem;
-        }
-
-        .form-title {
-            font-size: 1.5rem;
-            font-weight: 400;
             text-align: center;
             margin-bottom: 2rem;
-            letter-spacing: 0.025em;
         }
-
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
-
-        .form-label {
+        .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 400;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            color: #333;
+            font-weight: 600;
         }
-
-        .form-input {
+        .form-control {
             width: 100%;
-            padding: 0.875rem;
-            border: 1px solid #000000;
-            background: #ffffff;
-            font-family: inherit;
+            padding: 0.75rem;
+            border: 2px solid #e1e1e1;
+            border-radius: 5px;
             font-size: 1rem;
-            font-weight: 300;
-            transition: all 0.2s ease;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
         }
-
-        .form-input:focus {
+        .form-control:focus {
             outline: none;
-            background: #000000;
-            color: #ffffff;
+            border-color: #667eea;
         }
-
-        .form-input:focus::placeholder {
-            color: #cccccc;
-        }
-
-        .form-button {
+        .btn {
             width: 100%;
-            padding: 1rem;
-            background: #000000;
-            color: #ffffff;
-            border: 1px solid #000000;
-            font-family: inherit;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
             font-size: 1rem;
-            font-weight: 400;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+            transition: transform 0.2s;
         }
-
-        .form-button:hover {
-            background: #ffffff;
-            color: #000000;
+        .btn:hover {
+            transform: translateY(-2px);
         }
-
-        .form-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .form-links {
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .form-links a {
-            color: #000000;
-            text-decoration: none;
-            font-weight: 400;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s ease;
-        }
-
-        .form-links a:hover {
-            border-bottom-color: #000000;
-        }
-
         .alert {
-            padding: 1rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid #000000;
-            background: #f8f8f8;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
         }
-
-        .alert-error {
-            background: #ffebee;
-            border-color: #f44336;
-            color: #c62828;
-        }
-
         .alert-success {
-            background: #e8f5e8;
-            border-color: #4caf50;
-            color: #2e7d32;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
-
-        .back-link {
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-            color: #000000;
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .mt-3 {
+            margin-top: 1rem;
+        }
+        a {
+            color: #667eea;
             text-decoration: none;
-            font-weight: 400;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s ease;
         }
-
-        .back-link:hover {
-            border-bottom-color: #000000;
-        }
-
-        .password-requirements {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 0.25rem;
-            font-weight: 300;
-        }
-
-        @media (max-width: 640px) {
-            .container {
-                padding: 0 1.5rem;
-            }
-            
-            .form-card {
-                padding: 2rem 1.5rem;
-            }
-            
-            .back-link {
-                position: static;
-                display: block;
-                text-align: center;
-                margin-bottom: 2rem;
-            }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <a href="{{ url('/') }}" class="back-link">← Back to Home</a>
-    
-    <div class="container">
-        <div class="logo-section">
-            <img src="{{ asset('img/logo.png') }}" alt="ShipAfrika" class="logo">
+    <div class="register-container">
+        <div class="logo">
+            <h2>Register</h2>
         </div>
 
-        <div class="form-card">
-            <h1 class="form-title">Create Account</h1>
-
-            @if($errors->any())
-                <div class="alert alert-error">
-                    @foreach($errors->all() as $error)
-                        <div>{{ $error }}</div>
-                    @endforeach
-                </div>
-            @endif
-
-            <form method="POST" action="{{ url(config('roro.prefix', 'api/v1').'/register') }}">
-                @csrf
-                
-                <div class="form-group">
-                    <label for="name" class="form-label">Full Name</label>
-                    <input 
-                        type="text" 
-                        id="name" 
-                        name="name" 
-                        class="form-input" 
-                        value="{{ old('name') }}"
-                        placeholder="Enter your full name"
-                        required
-                        autofocus
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="email" class="form-label">Email Address</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        class="form-input" 
-                        value="{{ old('email') }}"
-                        placeholder="Enter your email address"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        class="form-input" 
-                        placeholder="Create a password"
-                        required
-                    >
-                    <div class="password-requirements">
-                        Must be at least 8 characters long
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="password_confirmation" class="form-label">Confirm Password</label>
-                    <input 
-                        type="password" 
-                        id="password_confirmation" 
-                        name="password_confirmation" 
-                        class="form-input" 
-                        placeholder="Confirm your password"
-                        required
-                    >
-                </div>
-
-                <button type="submit" class="form-button">
-                    Create Account
-                </button>
-            </form>
-
-            <div class="form-links">
-                <a href="{{ url(config('roro.prefix', 'api/v1').'/login') }}">
-                    Already have an account? Sign in here
-                </a>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
+        @endif
+
+        @if($errors->any())
+            <div class="alert alert-danger">
+                @foreach($errors->all() as $error)
+                    <div>{{ $error }}</div>
+                @endforeach
+            </div>
+        @endif
+
+        <form method="POST" action="{{ url(config('roro.prefix', '') . '/register') }}">
+            @csrf
+
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    value="{{ old('name') }}"
+                    required
+                    placeholder="Enter your full name"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="email"
+                    value="{{ old('email') }}"
+                    required
+                    placeholder="Enter your email"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    name="password"
+                    required
+                    placeholder="Enter your password (min 6 characters)"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password_confirmation">Confirm Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    id="password_confirmation"
+                    name="password_confirmation"
+                    required
+                    placeholder="Confirm your password"
+                >
+            </div>
+
+            <button type="submit" class="btn">Register</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <p>Already have an account?
+                <a href="{{ url(config('roro.prefix', '') . '/login') }}">Login here</a>
+            </p>
+            <p>
+                <a href="{{ url(config('roro.prefix', '') . '/') }}">Back to Home</a>
+            </p>
         </div>
     </div>
 </body>

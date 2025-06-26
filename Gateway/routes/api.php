@@ -24,5 +24,6 @@ Route::middleware('auth:api')->prefix('v1')->group(function(){
 
 Route::prefix('v1')->group(function(){
     Route::post('token', [AccessTokenController::class,'issueToken']);
+    Route::post('refresh', [AccessTokenController::class,'refreshToken']);
 });
 

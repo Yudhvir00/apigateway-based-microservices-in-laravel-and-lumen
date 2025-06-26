@@ -1,38 +1,31 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-Route::get('/', function () {
-    return view('welcome');
-});
-
+// Get the prefix from config or set a default
 $prefix = config('roro.prefix', '');
 
 Route::group(['prefix' => $prefix], function () {
     Route::get('/', function () {
-        return view('welcome'); // Your current homepage
+        return view('welcome');
     });
 
-    Route::get('/login', function () {
-        return view('auth.login'); // You'll need to create
-    });
-
-    Route::get('/register', function () {
-        return view('auth.register'); // You'll need to create this view
-    });
-
-    // Add POST routes for form submissions
+    // Authentication routes
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
+
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
+
+    // Protected WEB routes (require session-based authentication)
+    Route::middleware('session.auth')->group(function () {
+        Route::get('/dashboard', function () {
+            $user = session('user');
+            return view('dashboard', compact('user'));
+        })->name('dashboard');
+
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+        Route::post('/refresh-token', [AuthController::class, 'refreshToken'])->name('refresh-token');
+    });
 });

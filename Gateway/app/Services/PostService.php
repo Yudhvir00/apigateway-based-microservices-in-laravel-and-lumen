@@ -63,5 +63,5 @@ class PostService
     {
         return $this->performRequest('DELETE', '/post/'.$post, $request->all(), $request->headers->all());
     }
-    
+
 }

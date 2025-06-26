@@ -15,14 +15,32 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        //
         DB::table('users')->insert([
-            'name' => "Jack the Admin",
-            'email' => "a@a.com",
-            'password' => Hash::make('a'),
-            'email_verified_at' => now(),
-            'created_at' => now(),
-            'updated_at' => now(),
+            [
+                'name' => "Jack the Admin",
+                'email' => "test@example.com",
+                'password' => bcrypt('password'),
+                'email_verified_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => "Jill the Editor",
+                'email' => "jill@example.com",
+                'password' => bcrypt('password123'),
+                'email_verified_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => "John the Viewer",
+                'email' => "john@example.com",
+                'password' => bcrypt('securepass'),
+                'email_verified_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
+
     }
 }
